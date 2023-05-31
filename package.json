@@ -26,5 +26,9 @@
     "nuxt": "^3.5.2",
     "prettier": "^2.8.8",
     "vitest": "^0.31.2"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "pinia": "^2.1.3"
   }
 }
