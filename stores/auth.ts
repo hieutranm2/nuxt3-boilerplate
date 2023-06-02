@@ -16,8 +16,9 @@ export const useAuthStore = defineStore('auth', {
     login() {
       this.user = { id: '1', name: 'John Doe' }
     },
-    logout() {
+    async logout() {
       this.user = null
+      navigateTo('/login')
     },
   },
 })

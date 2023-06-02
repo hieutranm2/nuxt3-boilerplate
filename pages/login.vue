@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button type="button" @click="router.back">Back</button>
     <h1>Login</h1>
     <form @submit.prevent="handleSubmit">
       <input v-model="params.username" type="text" placeholder="Username" />
@@ -12,6 +11,11 @@
 </template>
 
 <script setup>
+definePageMeta({
+  title: 'Login',
+  middleware: ['auth'],
+})
+
 const router = useRouter()
 const authStore = useAuthStore()
 
@@ -27,12 +31,12 @@ const handleSubmit = () => {
     errorMessage.value = 'Please fill in all fields'
     return
   }
-  if (username !== 'm2vietnam' || password !== '123456') {
+  if (username !== 'user' || password !== '123456') {
     errorMessage.value = 'Username or password is incorrect'
     return
   }
   authStore.login()
-  router.push('/')
+  router.push('/profile')
 }
 </script>
 

@@ -3,10 +3,13 @@
     <div>Logo</div>
     <nav>
       <ul>
-        <li>
+        <li key="home">
           <nuxt-link to="/">Home</nuxt-link>
         </li>
-        <li>
+        <li v-if="authStore.isLoggedIn" key="profile">
+          <nuxt-link to="/profile">Profile</nuxt-link>
+        </li>
+        <li key="login">
           <button @click="handleClickLogInButton">
             {{ authStore.isLoggedIn ? 'Log out' : 'Log in' }}
           </button>
