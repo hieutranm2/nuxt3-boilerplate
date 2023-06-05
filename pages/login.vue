@@ -25,18 +25,18 @@ const params = reactive({
   password: '',
 })
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const { username, password } = params
   if (username === '' || password === '') {
     errorMessage.value = 'Please fill in all fields'
     return
   }
-  if (username !== 'user' || password !== '123456') {
-    errorMessage.value = 'Username or password is incorrect'
-    return
+  try {
+    await authStore.login(username, password)
+    router.push('/profile')
+  } catch (error) {
+    errorMessage.value = error.message
   }
-  authStore.login()
-  router.push('/profile')
 }
 </script>
 
