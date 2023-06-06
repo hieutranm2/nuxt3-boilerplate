@@ -17,6 +17,7 @@ definePageMeta({
 })
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const errorMessage = ref('')
@@ -33,7 +34,7 @@ const handleSubmit = async () => {
   }
   try {
     await authStore.login(username, password)
-    router.push('/profile')
+    router.push(route.query.redirect ?? '/profile')
   } catch (error) {
     errorMessage.value = error.message
   }
