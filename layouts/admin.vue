@@ -2,19 +2,17 @@
   <div>
     <template v-if="authStore.isAuthLoaded">
       <header>
-        <div>Logo</div>
-        <nav>
+        <div>Admin Logo</div>
+        <nav v-if="authStore.isLoggedIn">
           <ul>
             <li key="home">
-              <nuxt-link to="/">Home</nuxt-link>
+              <nuxt-link to="/admin">Dashboard</nuxt-link>
             </li>
-            <li v-if="authStore.isLoggedIn" key="profile">
-              <nuxt-link to="/profile">Profile</nuxt-link>
+            <li key="profile">
+              <nuxt-link to="/admin/users">Users Management</nuxt-link>
             </li>
-            <li key="login">
-              <button @click="handleClickLogInButton">
-                {{ authStore.isLoggedIn ? 'Log out' : 'Log in' }}
-              </button>
+            <li key="logout">
+              <button @click="handleClickLogOutButton">Log out</button>
             </li>
           </ul>
         </nav>
@@ -30,17 +28,14 @@
 </template>
 
 <script setup>
-const router = useRouter()
 const authStore = useAuthStore()
 
-const handleClickLogInButton = async () => {
+const handleClickLogOutButton = async () => {
   if (authStore.isLoggedIn) {
     const isLoggedOut = await authStore.logout()
     if (isLoggedOut) {
-      router.push('/login')
+      navigateTo('/admin/login')
     }
-  } else {
-    router.push('/login')
   }
 }
 </script>

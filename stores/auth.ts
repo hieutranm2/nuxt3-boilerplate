@@ -22,7 +22,8 @@ export const useAuthStore = defineStore('auth', () => {
     }
     try {
       await setPersistence(auth, isRemember ? browserLocalPersistence : browserSessionPersistence)
-      await signInWithEmailAndPassword(auth, email, password)
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      return userCredential.user
     } catch (error: any) {
       const errorCode = error.code
       if (
@@ -36,12 +37,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function logout(redirectTo: string = '/login') {
+  async function logout() {
     if (!auth) {
       throw new Error('Firebase Auth is not initialized')
     }
-    await signOut(auth)
-    navigateTo(redirectTo)
+    try {
+      await signOut(auth)
+      return true
+    } catch (error: any) {
+      return false
+    }
   }
 
   return {

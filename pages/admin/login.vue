@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1>Admin Login</h1>
     <form @submit.prevent="handleSubmit">
       <input v-model="params.username" type="text" placeholder="Username" />
       <input v-model="params.password" type="password" placeholder="Password" />
@@ -9,17 +9,15 @@
         <span>Remember me</span>
       </label>
       <button type="submit">Login</button>
-      <div>
-        <nuxt-link to="/signup">Register now</nuxt-link>
-      </div>
     </form>
     <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   title: 'Login',
+  layout: 'admin',
   middleware: ['auth'],
 })
 
@@ -41,17 +39,9 @@ const handleSubmit = async () => {
     return
   }
   try {
-    const user = await authStore.login(username, password, rememberMe)
-    const idTokenResult = await user.getIdTokenResult()
-    if (idTokenResult.claims.role !== 'user') {
-      const isLoggedOut = await authStore.logout()
-      if (isLoggedOut) {
-        errorMessage.value = 'Invalid email or password'
-      }
-      return
-    }
-    router.push(route.query.redirect ?? '/profile')
-  } catch (error) {
+    await authStore.login(username, password, rememberMe)
+    router.push((route.query.redirect as string) ?? '/profile')
+  } catch (error: any) {
     errorMessage.value = error.message
   }
 }
