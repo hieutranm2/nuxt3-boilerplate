@@ -9,9 +9,6 @@
         <span>Remember me</span>
       </label>
       <button type="submit">Login</button>
-      <div>
-        <nuxt-link to="/signup">Register now</nuxt-link>
-      </div>
     </form>
     <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
   </div>
