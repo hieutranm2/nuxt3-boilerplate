@@ -1,8 +1,12 @@
 <template>
   <div>
     <h1>Home</h1>
-    <nav>
-      <NuxtLink to="/login">Login</NuxtLink>
-    </nav>
+    <p v-if="authStore.isLoggedIn">
+      You're logged in as <b>{{ authStore.currentUser.email }}</b>
+    </p>
   </div>
 </template>
+
+<script setup>
+const authStore = useAuthStore()
+</script>

@@ -2,6 +2,13 @@
   "root": true,
   "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"],
   "rules": {
-    "vue/no-multiple-template-root": 0
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
   }
 }
