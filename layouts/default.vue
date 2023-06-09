@@ -8,7 +8,7 @@
             <li key="home">
               <nuxt-link to="/">Home</nuxt-link>
             </li>
-            <li v-if="authStore.isLoggedIn" key="profile">
+            <li v-if="customClaims?.roles?.includes('user')" key="profile">
               <nuxt-link to="/profile">Profile</nuxt-link>
             </li>
             <li key="login">
@@ -32,6 +32,16 @@
 <script setup>
 const router = useRouter()
 const authStore = useAuthStore()
+
+const { data: customClaims } = await useAsyncData(
+  () => {
+    return authStore.getCustomClaims()
+  },
+  {
+    watch: [authStore.getCustomClaims],
+    pick: ['roles'],
+  }
+)
 
 const handleClickLogInButton = async () => {
   if (authStore.isLoggedIn) {
