@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Profile</h1>
+    <h1>Welcome to Admin Dashboard</h1>
     <p>
       I am <b>{{ authStore.currentUser.displayName }}</b>
     </p>
@@ -9,10 +9,12 @@
 
 <script setup>
 definePageMeta({
-  title: 'Profile',
+  title: 'Admin',
+  layout: 'admin',
   middleware: ['auth'],
-  accessControlList: [['role:user', 'permission:users.get']],
-  permissionDeniedRedirect: '/login',
+  accessControlList: ['role:superadmin', 'role:admin'],
+  permissionDeniedRedirect: '/admin/login',
 })
+
 const authStore = useAuthStore()
 </script>

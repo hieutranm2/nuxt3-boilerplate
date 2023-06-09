@@ -1,13 +1,18 @@
-import { readFileSync } from 'fs'
-
 export default defineNuxtConfig({
-  ssr: false, // if ssr: true, please install firebase-admin @firebase/app-types
   modules: ['@nuxtjs/eslint-module', '@pinia/nuxt', 'nuxt-vuefire'],
   imports: {
     dirs: ['stores'],
   },
+  pinia: {
+    autoImports: ['defineStore', 'skipHydrate'],
+  },
   vuefire: {
-    config: JSON.parse(readFileSync('./firebase.config.json', 'utf-8')),
+    config: {
+      apiKey: process.env.API_KEY,
+      authDomain: `${process.env.PROJECT_ID}.firebaseapp.com`,
+      projectId: process.env.PROJECT_ID,
+    },
     auth: true,
+    admin: {},
   },
 })

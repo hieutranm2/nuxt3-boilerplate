@@ -1,4 +1,14 @@
 {
   "root": true,
-  "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"]
+  "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
+  }
 }

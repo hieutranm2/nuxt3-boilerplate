@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1>Admin Login</h1>
     <form @submit.prevent="handleSubmit">
       <input v-model="params.username" type="text" placeholder="Username" />
       <input v-model="params.password" type="password" placeholder="Password" />
@@ -9,21 +9,19 @@
         <span>Remember me</span>
       </label>
       <button type="submit">Login</button>
-      <div>
-        <nuxt-link to="/signup">Register now</nuxt-link>
-      </div>
     </form>
     <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   title: 'Login',
+  layout: 'admin',
   middleware: ['auth'],
 })
 
-const ACCEPTED_ROLE = 'user'
+const ACCEPTED_ROLE = 'admin'
 
 const router = useRouter()
 const route = useRoute()
@@ -45,15 +43,13 @@ const handleSubmit = async () => {
   try {
     await authStore.login(username, password, rememberMe)
     const claims = await authStore.getCustomClaims()
-    if (!claims.roles?.includes(ACCEPTED_ROLE)) {
-      const isLoggedOut = await authStore.logout()
-      if (isLoggedOut) {
-        errorMessage.value = 'Invalid email or password'
-      }
+    if (!claims?.roles?.includes(ACCEPTED_ROLE)) {
+      await authStore.logout()
+      errorMessage.value = 'Invalid username or password'
       return
     }
-    router.push(route.query.redirect ?? '/profile')
-  } catch (error) {
+    router.push((route.query.redirect as string) ?? '/admin')
+  } catch (error: any) {
     errorMessage.value = error.message
   }
 }
