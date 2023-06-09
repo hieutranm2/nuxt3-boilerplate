@@ -1,10 +1,11 @@
 export default defineNuxtConfig({
+  ssr: false,
   modules: ['@nuxtjs/eslint-module', '@pinia/nuxt', 'nuxt-vuefire'],
   imports: {
     dirs: ['stores'],
   },
   pinia: {
-    autoImports: ['defineStore', 'skipHydrate'],
+    autoImports: ['defineStore'],
   },
   vuefire: {
     config: {
@@ -13,6 +14,5 @@ export default defineNuxtConfig({
       projectId: process.env.PROJECT_ID,
     },
     auth: true,
-    admin: {},
   },
 })
