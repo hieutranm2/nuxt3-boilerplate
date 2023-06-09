@@ -21,6 +21,8 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+const ACCEPTED_ROLE = 'admin'
+
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
@@ -40,7 +42,13 @@ const handleSubmit = async () => {
   }
   try {
     await authStore.login(username, password, rememberMe)
-    router.push((route.query.redirect as string) ?? '/profile')
+    const claims = await authStore.getCustomClaims()
+    if (!claims?.roles?.includes(ACCEPTED_ROLE)) {
+      await authStore.logout()
+      errorMessage.value = 'Invalid username or password'
+      return
+    }
+    router.push((route.query.redirect as string) ?? '/admin')
   } catch (error: any) {
     errorMessage.value = error.message
   }

@@ -23,6 +23,8 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+const ACCEPTED_ROLE = 'user'
+
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
@@ -41,9 +43,9 @@ const handleSubmit = async () => {
     return
   }
   try {
-    const user = await authStore.login(username, password, rememberMe)
-    const idTokenResult = await user.getIdTokenResult()
-    if (idTokenResult.claims.role !== 'user') {
+    await authStore.login(username, password, rememberMe)
+    const claims = await authStore.getCustomClaims()
+    if (!claims.roles?.includes(ACCEPTED_ROLE)) {
       const isLoggedOut = await authStore.logout()
       if (isLoggedOut) {
         errorMessage.value = 'Invalid email or password'
