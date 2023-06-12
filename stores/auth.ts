@@ -58,12 +58,8 @@ export const useAuthStore = defineStore('auth', () => {
       return null
     }
     try {
-      if (process.server) {
-        return (userValue as any).customClaims
-      } else {
-        const idTokenResult = await userValue.getIdTokenResult()
-        return idTokenResult?.claims
-      }
+      const idTokenResult = await userValue.getIdTokenResult()
+      return idTokenResult?.claims
     } catch (error: any) {
       return null
     }

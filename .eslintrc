@@ -13,7 +13,8 @@
         "ignoreRestSiblings": true,
         "destructuredArrayIgnorePattern": "^_"
       }
-    ]
+    ],
+    "tailwindcss/no-custom-classname": "off"
   },
   "overrides": [
     {
