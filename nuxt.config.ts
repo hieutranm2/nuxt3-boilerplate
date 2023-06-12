@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/eslint-module', '@pinia/nuxt', 'nuxt-vuefire'],
+  modules: ['@nuxtjs/eslint-module', '@pinia/nuxt', 'nuxt-vuefire', '@nuxtjs/tailwindcss'],
   imports: {
     dirs: ['stores'],
   },
