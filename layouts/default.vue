@@ -5,11 +5,8 @@
         <div>Logo</div>
         <nav>
           <ul>
-            <li key="home">
-              <nuxt-link to="/">Home</nuxt-link>
-            </li>
-            <li v-if="authStore.isLoggedIn" key="profile">
-              <nuxt-link to="/profile">Profile</nuxt-link>
+            <li v-for="menu in menus" :key="menu.key">
+              <nuxt-link :to="menu.to">{{ menu.label }}</nuxt-link>
             </li>
             <li key="login">
               <button @click="handleClickLogInButton">
@@ -32,6 +29,36 @@
 <script setup>
 const router = useRouter()
 const authStore = useAuthStore()
+
+const { data: customClaims } = await useAsyncData(() => authStore.getCustomClaims(), {
+  watch: [authStore.getCustomClaims],
+})
+
+const menus = computed(() => {
+  return [
+    {
+      key: 'home',
+      label: 'Home',
+      to: '/',
+    },
+    {
+      key: 'profile',
+      label: 'Profile',
+      to: '/profile',
+      acl: ['role:user'],
+    },
+  ].filter(
+    (menu) =>
+      // If menu has no acl, it is public
+      !menu.acl ||
+      checkACL(
+        authStore.currentUser
+          ? { ...authStore.currentUser, roles: customClaims.value.roles }
+          : null,
+        menu.acl
+      )
+  )
+})
 
 const handleClickLogInButton = async () => {
   if (authStore.isLoggedIn) {
