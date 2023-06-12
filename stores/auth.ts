@@ -50,9 +50,6 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function getCustomClaims(): Promise<Record<string, any> | null> {
-    if (!auth) {
-      throw new Error('Firebase Auth is not initialized')
-    }
     const userValue = user.value
     if (!userValue) {
       return null
