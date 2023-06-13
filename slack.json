@@ -1,0 +1,65 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "plain_text",
+      "text": "【{{.Build.Substitutions.TRIGGER_NAME}} {{.Build.Status}} on {{.Build.Substitutions.BRANCH_NAME}}】",
+      "emoji": true
+    }
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Status:*\n{{.Build.Status}}"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Trigger:*\n{{.Build.Substitutions.TRIGGER_NAME}}"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "fields": [
+      {
+        "type": "mrkdwn",
+        "text": "*Repository:*\n<https://github.com/M2Holdings/{{.Build.Substitutions.REPO_NAME}}|M2Holdings/{{.Build.Substitutions.REPO_NAME}}>"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Branch:*\n{{.Build.Substitutions.BRANCH_NAME}}"
+      }
+    ]
+  },
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "image",
+        "image_url": "https://avatars.githubusercontent.com/in/10529?s=40&v=4",
+        "alt_text": "Cloud Build icon"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "Cloud Build ({{.Build.ProjectId}}, {{.Build.Id}})"
+      }
+    ]
+  },
+  {
+    "type": "actions",
+    "elements": [
+      {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "View Logs",
+          "emoji": true
+        },
+        "action_id": "view_logs",
+        "url": "{{.Build.LogUrl}}"
+      }
+    ]
+  }
+]
