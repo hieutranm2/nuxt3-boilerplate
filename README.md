@@ -47,13 +47,7 @@ pnpm run test
 Build the application for production:
 
 ```bash
-pnpm run build
-```
-
-Locally preview production build:
-
-```bash
-pnpm run preview
+pnpm run generate
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
