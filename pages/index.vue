@@ -9,4 +9,7 @@
 
 <script setup>
 const authStore = useAuthStore()
+const foo = useFoo()
+
+console.log(foo.value)
 </script>
