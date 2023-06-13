@@ -8,7 +8,7 @@
         <input v-model="params.rememberMe" type="checkbox" />
         <span>Remember me</span>
       </label>
-      <button type="submit">Login</button>
+      <ui-button type="submit">Login</ui-button>
     </form>
     <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
   </div>

@@ -10,5 +10,13 @@
         "destructuredArrayIgnorePattern": "^_"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["components/ui/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": 0
+      }
+    }
+  ]
 }
