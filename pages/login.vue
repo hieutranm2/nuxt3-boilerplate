@@ -18,8 +18,8 @@
         <input v-model="params.rememberMe" type="checkbox" />
         <span>Remember me</span>
       </label>
-      <button class="rounded-lg bg-sky-600 px-2 py-1 text-white" type="submit">Login</button>
-      <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
+      <ui-button class="rounded-lg bg-sky-600 px-2 py-1 text-white" type="submit">Login</ui-button>
+      <p v-if="errorMessage" class="text-center text-sm text-red-500">{{ errorMessage }}</p>
       <hr />
       <p>
         Don't have an account?

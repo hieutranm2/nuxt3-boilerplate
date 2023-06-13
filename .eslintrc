@@ -15,5 +15,13 @@
       }
     ],
     "tailwindcss/no-custom-classname": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["components/ui/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": 0
+      }
+    }
+  ]
 }
