@@ -1,19 +1,31 @@
 <template>
-  <div>
-    <h1>Login</h1>
-    <form @submit.prevent="handleSubmit">
-      <input v-model="params.username" type="text" placeholder="Username" />
-      <input v-model="params.password" type="password" placeholder="Password" />
-      <label class="flexbox">
+  <div class="mx-auto w-96">
+    <h1 class="mb-6 text-center text-2xl font-bold">Login</h1>
+    <form class="flex flex-col gap-6" @submit.prevent="handleSubmit">
+      <input
+        v-model="params.username"
+        class="rounded-lg border px-2 py-1"
+        type="text"
+        placeholder="Username"
+      />
+      <input
+        v-model="params.password"
+        class="rounded-lg border px-2 py-1"
+        type="password"
+        placeholder="Password"
+      />
+      <label class="flex w-fit items-center gap-2">
         <input v-model="params.rememberMe" type="checkbox" />
         <span>Remember me</span>
       </label>
-      <ui-button type="submit">Login</ui-button>
-      <div>
-        <nuxt-link to="/signup">Register now</nuxt-link>
-      </div>
+      <ui-button class="rounded-lg bg-sky-600 px-2 py-1 text-white" type="submit">Login</ui-button>
+      <p v-if="errorMessage" class="text-center text-sm text-red-500">{{ errorMessage }}</p>
+      <hr />
+      <p>
+        Don't have an account?
+        <nuxt-link class="text-sky-600" to="/signup">Register now</nuxt-link>
+      </p>
     </form>
-    <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -58,25 +70,3 @@ const handleSubmit = async () => {
   }
 }
 </script>
-
-<style scoped>
-input {
-  display: block;
-  margin: 10px 0;
-}
-
-.flexbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.flexbox input {
-  margin: 0;
-}
-
-p.form-error {
-  color: red;
-}
-</style>

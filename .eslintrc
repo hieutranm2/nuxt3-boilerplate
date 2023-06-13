@@ -1,6 +1,10 @@
 {
   "root": true,
-  "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"],
+  "extends": [
+    "@nuxt/eslint-config",
+    "plugin:prettier/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
   "rules": {
     "@typescript-eslint/no-unused-vars": [
       "warn",
@@ -9,7 +13,8 @@
         "ignoreRestSiblings": true,
         "destructuredArrayIgnorePattern": "^_"
       }
-    ]
+    ],
+    "tailwindcss/no-custom-classname": "off"
   },
   "overrides": [
     {
