@@ -2,13 +2,24 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Before You Begin
+- Install **Node.js 18 LTS** (*via **NVM** (highly recommend)*)
+- Install **pnmp**
+- Install **Git**
+- Install **Visual Studio Code** and all recommended extensions
+
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# pnpm
 pnpm install
+```
+
+Set up environment variables with `.env`
+
+```bash
+cp .env.example .env
 ```
 
 ## Development Server
@@ -23,6 +34,12 @@ pnpm run dev
 
 ```bash
 pnpm run lint
+```
+
+## Testing
+
+```bash
+pnpm run test
 ```
 
 ## Production
