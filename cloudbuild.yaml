@@ -1,0 +1,22 @@
+steps:
+- name: node:18
+  entrypoint: bash
+  args:
+    - -c
+    - |
+      npm install -g pnpm
+      pnpm install --frozen-lockfile --ignore-scripts
+      pnpm run generate
+  env:
+    - PROJECT_ID=$PROJECT_ID
+  secretEnv:
+    - API_KEY
+    - APP_ID
+- name: gcr.io/$PROJECT_ID/firebase
+  args: ['deploy', '--project=$PROJECT_ID', "--only hosting"]
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/API_KEY/versions/latest
+    env: 'API_KEY'
+  - versionName: projects/$PROJECT_ID/secrets/APP_ID/versions/latest
+    env: 'APP_ID'
