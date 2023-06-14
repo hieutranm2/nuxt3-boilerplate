@@ -4,13 +4,15 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const isProtected = !!to.meta.accessControlList
 
   if (isProtected) {
-    if (process.server) {
-      user.roles = user.customClaims?.roles
-      user.permissions = user.customClaims?.permissions
-    } else {
-      const idTokenResult = await user.getIdTokenResult()
-      user.roles = idTokenResult.claims.roles
-      user.permissions = idTokenResult.claims.permissions
+    if (user) {
+      if (process.server) {
+        user.roles = user.customClaims?.roles
+        user.permissions = user.customClaims?.permissions
+      } else {
+        const idTokenResult = await user.getIdTokenResult()
+        user.roles = idTokenResult.claims.roles
+        user.permissions = idTokenResult.claims.permissions
+      }
     }
     const canAccess = checkACL(
       user,
